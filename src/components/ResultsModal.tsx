@@ -53,17 +53,14 @@ export default function ResultsModal({ score, total, onRestart, onSubmit }: Prop
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm animate-fade-in">
-      <Card className="w-full max-w-md shadow-xl animate-scale-in">
+      <Card className="w-full max-w-md shadow-none animate-scale-in">
         <CardHeader className="items-center pb-2 text-center">
-          <div className={cn(
-            'flex h-16 w-16 items-center justify-center rounded-full animate-pop',
-            pct >= 75 ? 'bg-green-100' : pct >= 50 ? 'bg-amber-100' : 'bg-red-100',
-          )}>
+          <div className="animate-pop">
             {pct >= 75
-              ? <CheckCircle2 className="size-9 text-green-600" strokeWidth={1.75} />
+              ? <CheckCircle2 className="size-[3rem] text-green-600" strokeWidth={1.75} />
               : pct >= 50
-              ? <AlertCircle className="size-9 text-amber-500" strokeWidth={1.75} />
-              : <XCircle className="size-9 text-red-500" strokeWidth={1.75} />
+              ? <AlertCircle className="size-[3rem] text-amber-500" strokeWidth={1.75} />
+              : <XCircle className="size-[3rem] text-red-500" strokeWidth={1.75} />
             }
           </div>
           <h2 className="mt-3 text-2xl font-extrabold text-foreground">{title}</h2>

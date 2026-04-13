@@ -24,12 +24,12 @@ export default function ConfirmationPage({ name, score, total }: Props) {
 
       {/* Content */}
       <main className="flex flex-1 items-center justify-center p-4 sm:p-8">
-        <Card className="w-full max-w-md shadow-xl animate-scale-in text-center">
+        <Card className="w-full max-w-md shadow-none animate-scale-in text-center">
           <CardContent className="flex flex-col items-center gap-6 pt-10 pb-10">
 
             {/* Icon */}
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-100 animate-pop">
-              <CheckCircle2 className="size-11 text-green-600" strokeWidth={1.75} />
+            <div className="animate-pop">
+              <CheckCircle2 className="size-[4.3rem] text-green-600" strokeWidth={1.75} />
             </div>
 
             {/* Heading */}
