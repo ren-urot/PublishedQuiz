@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b \"c:\\\\Users\\\\RenatoUrotJr\\\\OneDrive - Ensombl\\\\CPD Published Quiz\")",
+      "Bash(node -e \"const p=require\\('path'\\);console.log\\(process.version\\)\")",
+      "Bash(npm --version)",
+      "Bash(npx --version)",
+      "Bash(npm show:*)",
+      "Bash(node -e \"const v=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const arr=JSON.parse\\(v\\); console.log\\(arr.filter\\(x=>x.startsWith\\('5.'\\)\\).slice\\(-5\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const arr=JSON.parse\\(d\\);console.log\\(arr.filter\\(x=>x.startsWith\\('5.'\\)\\).slice\\(-5\\).join\\('\\\\n'\\)\\)}\\)\")"
+    ]
+  }
+}
