@@ -8,9 +8,10 @@ interface Props {
   score: number
   total: number
   onRestart: () => void
+  onSubmit: (name: string, email: string) => void
 }
 
-export default function ResultsModal({ score, total, onRestart }: Props) {
+export default function ResultsModal({ score, total, onRestart, onSubmit }: Props) {
   const pct = Math.round((score / total) * 100)
   const passed = pct >= 75
 
@@ -37,9 +38,18 @@ export default function ResultsModal({ score, total, onRestart }: Props) {
         }
       }, 20)
       return () => clearInterval(timer)
-    }, 300) // start after modal entrance animation
+    }, 300)
     return () => clearTimeout(delay)
   }, [pct])
+
+  // Form state for passed users
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
+  function handleSubmit() {
+    if (!name.trim() || !email.trim()) return
+    onSubmit(name.trim(), email.trim())
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm animate-fade-in">
@@ -84,9 +94,39 @@ export default function ResultsModal({ score, total, onRestart }: Props) {
             </div>
           </div>
 
-          <Button onClick={onRestart} className="w-full active:scale-[0.98] transition-transform">
-            Retake Quiz
-          </Button>
+          {/* Name + email form shown only when passed */}
+          {passed && (
+            <div className="flex w-full flex-col gap-3 animate-slide-up">
+              <input
+                type="text"
+                placeholder="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-[#2D7BFB] focus:outline-none focus:ring-2 focus:ring-[#2D7BFB]/20 transition-all"
+              />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-[#2D7BFB] focus:outline-none focus:ring-2 focus:ring-[#2D7BFB]/20 transition-all"
+              />
+              <Button
+                onClick={handleSubmit}
+                disabled={!name.trim() || !email.trim()}
+                className="w-full active:scale-[0.98] transition-transform"
+              >
+                Submit
+              </Button>
+            </div>
+          )}
+
+          {/* Retake shown when failed */}
+          {!passed && (
+            <Button onClick={onRestart} className="w-full active:scale-[0.98] transition-transform">
+              Retake Quiz
+            </Button>
+          )}
         </CardContent>
       </Card>
     </div>

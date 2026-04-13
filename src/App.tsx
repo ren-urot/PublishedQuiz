@@ -1,15 +1,28 @@
+import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import QuizCard from '@/components/QuizCard'
 import NavRow from '@/components/NavRow'
 import ResultsModal from '@/components/ResultsModal'
+import ConfirmationPage from '@/components/ConfirmationPage'
 import { Progress } from '@/components/ui/progress'
 import { useQuiz } from '@/hooks/useQuiz'
 
 export default function App() {
   const quiz = useQuiz()
+  const [completion, setCompletion] = useState<{ name: string; email: string } | null>(null)
 
   const progressValue = ((quiz.current + 1) / quiz.total) * 100
   const answeredCount = quiz.answered.filter(Boolean).length
+
+  if (completion) {
+    return (
+      <ConfirmationPage
+        name={completion.name}
+        score={quiz.score}
+        total={quiz.total}
+      />
+    )
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -19,6 +32,7 @@ export default function App() {
         <div className="flex w-full max-w-2xl flex-col gap-5">
           {/* Page title */}
           <h1 className="animate-slide-down text-center text-2xl font-bold text-foreground">Published Quiz</h1>
+
           {/* Progress header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -56,7 +70,12 @@ export default function App() {
       </main>
 
       {quiz.showResults && (
-        <ResultsModal score={quiz.score} total={quiz.total} onRestart={quiz.restart} />
+        <ResultsModal
+          score={quiz.score}
+          total={quiz.total}
+          onRestart={quiz.restart}
+          onSubmit={(name, email) => setCompletion({ name, email })}
+        />
       )}
     </div>
   )
