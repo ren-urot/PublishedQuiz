@@ -28,26 +28,25 @@ export default function AnswerOption({
     <button
       onClick={onClick}
       disabled={isAnswered}
+      style={{ animationDelay: `${index * 70}ms` }}
       className={cn(
-        'flex w-full items-center gap-3 rounded-xl border-[1.5px] px-4 py-3.5 text-left transition-all duration-150',
+        'animate-slide-up',
+        'flex w-full items-center gap-3 rounded-xl border-[1.5px] px-4 py-3.5 text-left',
+        'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm hover:animate-glow-answer active:translate-y-0 active:shadow-none active:scale-[0.99]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
         'disabled:cursor-default',
-        // idle
         !isAnswered && 'border-border bg-card hover:border-[#2D7BFB] hover:bg-[#2D7BFB]/5',
-        // answered — correct
         isAnswered && isCorrect && 'border-green-500 bg-green-50',
-        // answered — wrong selection
         isAnswered && isIncorrect && 'border-red-500 bg-red-50',
-        // answered — unselected other option
         isDimmed && 'border-border bg-card opacity-50',
       )}
     >
       <span
         className={cn(
-          'flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors',
+          'flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors duration-200',
           !isAnswered && 'bg-secondary text-primary',
-          isAnswered && isCorrect && 'bg-green-500 text-white',
-          isAnswered && isIncorrect && 'bg-red-500 text-white',
+          isAnswered && isCorrect && 'bg-green-500 text-white animate-pop',
+          isAnswered && isIncorrect && 'bg-red-500 text-white animate-shake',
           isDimmed && 'bg-secondary text-muted-foreground',
         )}
       >

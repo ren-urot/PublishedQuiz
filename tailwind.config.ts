@@ -51,6 +51,53 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      keyframes: {
+        'slide-up': {
+          from: { opacity: '0', transform: 'translateY(20px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'slide-down': {
+          from: { opacity: '0', transform: 'translateY(-10px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'scale-in': {
+          from: { opacity: '0', transform: 'scale(0.93)' },
+          to: { opacity: '1', transform: 'scale(1)' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'pop': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.18)' },
+        },
+        'shake': {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '20%': { transform: 'translateX(-4px)' },
+          '40%': { transform: 'translateX(4px)' },
+          '60%': { transform: 'translateX(-3px)' },
+          '80%': { transform: 'translateX(3px)' },
+        },
+        'glow-answer': {
+          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(45,123,251,0.13)' },
+          '50%':       { boxShadow: '0 0 14px 4px rgba(45,123,251,0.28)' },
+        },
+        'glow-btn': {
+          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(45,123,251,0.15)' },
+          '50%':       { boxShadow: '0 0 16px 5px rgba(45,123,251,0.30)' },
+        },
+      },
+      animation: {
+        'slide-up':     'slide-up 0.45s cubic-bezier(0.16,1,0.3,1) both',
+        'slide-down':   'slide-down 0.35s cubic-bezier(0.16,1,0.3,1) both',
+        'scale-in':     'scale-in 0.4s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-in':      'fade-in 0.3s ease-out both',
+        'pop':          'pop 0.3s ease-out',
+        'shake':        'shake 0.4s ease-out',
+        'glow-answer':  'glow-answer 1.8s ease-in-out infinite',
+        'glow-btn':     'glow-btn 1.8s ease-in-out infinite',
+      },
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports

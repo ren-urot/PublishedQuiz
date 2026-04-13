@@ -18,7 +18,7 @@ export default function App() {
       <main className="flex flex-1 items-center justify-center p-4 sm:p-8">
         <div className="flex w-full max-w-2xl flex-col gap-5">
           {/* Page title */}
-          <h1 className="text-center text-2xl font-bold text-foreground">Published Quiz</h1>
+          <h1 className="animate-slide-down text-center text-2xl font-bold text-foreground">Published Quiz</h1>
           {/* Progress header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -34,8 +34,9 @@ export default function App() {
             <Progress value={progressValue} className="h-1.5" />
           </div>
 
-          {/* Question card */}
+          {/* Question card — key forces remount + entrance animation on change */}
           <QuizCard
+            key={quiz.current}
             question={quiz.questions[quiz.current]}
             questionNumber={quiz.current + 1}
             selectedAnswer={quiz.selected[quiz.current]}

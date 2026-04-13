@@ -10,6 +10,7 @@ export default function FeedbackBox({ isCorrect, explanation }: Props) {
   return (
     <div
       className={cn(
+        'animate-slide-down',
         'flex gap-3 rounded-lg border p-4',
         isCorrect
           ? 'border-green-500 bg-green-50 text-green-900'

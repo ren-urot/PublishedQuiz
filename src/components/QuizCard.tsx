@@ -19,7 +19,7 @@ export default function QuizCard({
   onSelect,
 }: Props) {
   return (
-    <Card>
+    <Card className="animate-slide-up">
       <CardHeader className="pb-4">
         <p className="text-xs font-bold uppercase tracking-widest text-primary">
           Question {questionNumber}
