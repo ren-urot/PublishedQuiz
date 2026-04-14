@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import QuizCard from '@/components/QuizCard'
 import NavRow from '@/components/NavRow'
@@ -6,12 +6,56 @@ import ResultsModal from '@/components/ResultsModal'
 import ConfirmationPage from '@/components/ConfirmationPage'
 import QuizInfoSection from '@/components/QuizInfoSection'
 import QuestionTracker from '@/components/QuestionTracker'
+import ContentUploadPage, { type ContentType, type ContentData } from '@/components/ContentUploadPage'
 import { useQuiz } from '@/hooks/useQuiz'
 import { quizMeta } from '@/data/quizMeta'
 
+type Page = 'upload' | 'quiz'
+
+interface ActiveContent {
+  url: string
+  isPdf: boolean
+  noData: boolean
+}
+
 export default function App() {
   const quiz = useQuiz()
+  const [page, setPage] = useState<Page>('upload')
   const [completion, setCompletion] = useState<{ name: string; email: string } | null>(null)
+  const [activeContent, setActiveContent] = useState<ActiveContent>({
+    url: quizMeta.contentUrl,
+    isPdf: quizMeta.contentUrl.toLowerCase().endsWith('.pdf'),
+    noData: false,
+  })
+
+  useEffect(() => {
+    return () => {
+      if (activeContent.url.startsWith('blob:')) URL.revokeObjectURL(activeContent.url)
+    }
+  }, [activeContent.url])
+
+  function handleAssess(contentType: ContentType, data: ContentData) {
+    if (contentType === 'transcripts') {
+      setActiveContent({ url: '', isPdf: false, noData: true })
+    } else {
+      let url = ''
+      let isPdf = false
+      if (data.inputType === 'pdf' && data.file) {
+        url = URL.createObjectURL(data.file)
+        isPdf = true
+      } else if (data.inputType === 'url' && data.url) {
+        url = data.url
+        isPdf = data.url.toLowerCase().endsWith('.pdf')
+      }
+      setActiveContent({ url, isPdf, noData: false })
+    }
+    quiz.restart()
+    setPage('quiz')
+  }
+
+  if (page === 'upload') {
+    return <ContentUploadPage onAssess={handleAssess} />
+  }
 
   if (completion) {
     return (
@@ -25,19 +69,19 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <Navbar />
+      <Navbar variant="maclean" />
 
-      <main className="flex flex-1 items-center justify-center p-4 sm:p-8">
-        <div className="flex w-full max-w-2xl flex-col gap-5">
-          {/* Quiz title, content link, accreditation code, CPD points */}
+      <main className="flex flex-1 items-center justify-center px-4 pb-4 pt-0 sm:px-8 sm:pb-8 sm:pt-[2px]">
+        <div className="flex w-full max-w-2xl flex-col gap-2">
           <QuizInfoSection
             title={quizMeta.title}
-            contentUrl={quizMeta.contentUrl}
+            contentUrl={activeContent.url}
+            isPdf={activeContent.isPdf}
+            noData={activeContent.noData}
             accreditationCode={quizMeta.accreditationCode}
             cpdPoints={quizMeta.cpdPoints}
           />
 
-          {/* Question tracker: position + correct/incorrect per bubble */}
           <QuestionTracker
             total={quiz.total}
             current={quiz.current}
@@ -47,7 +91,6 @@ export default function App() {
             onJump={quiz.goToQuestion}
           />
 
-          {/* Question card — key forces remount + entrance animation on change */}
           <QuizCard
             key={quiz.current}
             question={quiz.questions[quiz.current]}
@@ -57,7 +100,6 @@ export default function App() {
             onSelect={quiz.selectAnswer}
           />
 
-          {/* Navigation */}
           <NavRow
             onPrev={quiz.prevQuestion}
             onNext={quiz.nextQuestion}

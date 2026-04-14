@@ -80,12 +80,12 @@ const config: Config = {
           '80%': { transform: 'translateX(3px)' },
         },
         'glow-answer': {
-          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(45,123,251,0.13)' },
-          '50%':       { boxShadow: '0 0 14px 4px rgba(45,123,251,0.28)' },
+          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(17,130,227,0.13)' },
+          '50%':       { boxShadow: '0 0 14px 4px rgba(17,130,227,0.28)' },
         },
         'glow-btn': {
-          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(45,123,251,0.15)' },
-          '50%':       { boxShadow: '0 0 16px 5px rgba(45,123,251,0.30)' },
+          '0%, 100%': { boxShadow: '0 0 5px 1px rgba(17,130,227,0.15)' },
+          '50%':       { boxShadow: '0 0 16px 5px rgba(17,130,227,0.30)' },
         },
       },
       animation: {

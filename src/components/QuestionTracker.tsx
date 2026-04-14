@@ -28,7 +28,7 @@ export default function QuestionTracker({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {/* Bubble row */}
       <div className="flex items-center w-full">
         {Array.from({ length: total }).map((_, i) => {

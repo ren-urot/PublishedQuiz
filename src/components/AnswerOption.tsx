@@ -31,8 +31,8 @@ export default function AnswerOption({
       style={{ animationDelay: `${index * 70}ms` }}
       className={cn(
         'animate-slide-up',
-        'flex w-full items-center gap-3 rounded-xl border-[1.5px] px-4 py-3.5 text-left',
-        'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm hover:animate-glow-answer active:translate-y-0 active:shadow-none active:scale-[0.99]',
+        'flex w-full items-center gap-3 rounded-xl border-[1.5px] px-4 py-2.5 text-left',
+        'transition-all duration-200 hover:shadow-[0_0_14px_4px_rgba(17,130,227,0.22)] active:scale-[0.99]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
         'disabled:cursor-default',
         !isAnswered && 'border-border bg-card hover:border-[#2D7BFB] hover:bg-[#2D7BFB]/5',

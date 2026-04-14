@@ -20,14 +20,14 @@ export default function QuizCard({
 }: Props) {
   return (
     <Card className="animate-slide-up">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-2 p-4">
         <p className="text-xs font-bold uppercase tracking-widest text-primary">
           Question {questionNumber}
         </p>
         <h2 className="text-xl font-bold leading-snug text-foreground">{question.question}</h2>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-3">
+      <CardContent className="flex flex-col gap-2 px-4 pb-4">
         {question.answers.map((answer, i) => (
           <AnswerOption
             key={i}

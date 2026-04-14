@@ -1,6 +1,6 @@
 import { CheckCircle2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/maclean-logo.png'
 
 interface Props {
   name: string
@@ -17,7 +17,7 @@ export default function ConfirmationPage({ name, score, total }: Props) {
       <header className="w-full border-b border-border bg-white/95">
         <div className="mx-auto max-w-3xl flex h-14 items-center px-4 sm:px-6">
           <a href="/" className="flex items-center" aria-label="CPDcheck home">
-            <img src={logo} alt="CPDcheck" width={102} height={17} />
+            <img src={logo} alt="Maclean Financial" className="h-9 w-auto" />
           </a>
         </div>
       </header>
