@@ -4,15 +4,14 @@ import QuizCard from '@/components/QuizCard'
 import NavRow from '@/components/NavRow'
 import ResultsModal from '@/components/ResultsModal'
 import ConfirmationPage from '@/components/ConfirmationPage'
-import { Progress } from '@/components/ui/progress'
+import QuizInfoSection from '@/components/QuizInfoSection'
+import QuestionTracker from '@/components/QuestionTracker'
 import { useQuiz } from '@/hooks/useQuiz'
+import { quizMeta } from '@/data/quizMeta'
 
 export default function App() {
   const quiz = useQuiz()
   const [completion, setCompletion] = useState<{ name: string; email: string } | null>(null)
-
-  const progressValue = ((quiz.current + 1) / quiz.total) * 100
-  const answeredCount = quiz.answered.filter(Boolean).length
 
   if (completion) {
     return (
@@ -30,23 +29,23 @@ export default function App() {
 
       <main className="flex flex-1 items-center justify-center p-4 sm:p-8">
         <div className="flex w-full max-w-2xl flex-col gap-5">
-          {/* Page title */}
-          <h1 className="animate-slide-down text-center text-2xl font-bold text-foreground">Published Quiz</h1>
+          {/* Quiz title, content link, accreditation code, CPD points */}
+          <QuizInfoSection
+            title={quizMeta.title}
+            contentUrl={quizMeta.contentUrl}
+            accreditationCode={quizMeta.accreditationCode}
+            cpdPoints={quizMeta.cpdPoints}
+          />
 
-          {/* Progress header */}
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Question {quiz.current + 1} of {quiz.total}
-              </span>
-              {answeredCount > 0 && (
-                <span className="text-xs font-semibold text-muted-foreground">
-                  {quiz.score}/{quiz.total} correct
-                </span>
-              )}
-            </div>
-            <Progress value={progressValue} className="h-1.5" />
-          </div>
+          {/* Question tracker: position + correct/incorrect per bubble */}
+          <QuestionTracker
+            total={quiz.total}
+            current={quiz.current}
+            answered={quiz.answered}
+            selected={quiz.selected}
+            questions={quiz.questions}
+            onJump={quiz.goToQuestion}
+          />
 
           {/* Question card — key forces remount + entrance animation on change */}
           <QuizCard

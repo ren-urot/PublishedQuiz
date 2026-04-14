@@ -55,6 +55,11 @@ export function useQuiz() {
     setShowResults(false)
   }, [total])
 
+  const goToQuestion = useCallback((index: number) => {
+    if (index < 0 || index >= total) return
+    setCurrent(index)
+  }, [total])
+
   return {
     questions,
     current,
@@ -70,5 +75,6 @@ export function useQuiz() {
     nextQuestion,
     prevQuestion,
     restart,
+    goToQuestion,
   }
 }
