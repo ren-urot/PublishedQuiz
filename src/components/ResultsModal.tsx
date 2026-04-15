@@ -98,12 +98,19 @@ export default function ResultsModal({ score, total, onRestart, onSubmit }: Prop
         </CardHeader>
 
         <CardContent className="flex flex-col items-center gap-5 text-center">
-          <p className={cn(
-            'text-6xl font-extrabold tabular-nums transition-all duration-100',
-            passed ? 'text-primary' : 'text-red-500',
-          )}>
-            {displayPct}%
-          </p>
+          <div className="flex items-center gap-5 rounded-2xl border border-border bg-secondary px-7 py-4">
+            <div className="flex flex-col items-center gap-1">
+              <span className={cn('text-4xl font-extrabold tabular-nums', passed ? 'text-primary' : 'text-red-500')}>
+                {displayPct}%
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Score</span>
+            </div>
+            <div className="h-10 w-px bg-border" />
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-4xl font-extrabold tabular-nums text-green-600">75%</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Passing Mark</span>
+            </div>
+          </div>
 
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">{message}</p>
 

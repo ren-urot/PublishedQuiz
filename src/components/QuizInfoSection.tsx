@@ -1,83 +1,104 @@
 import { useState } from 'react'
-import { ExternalLink, FileText, X, Hash, Award } from 'lucide-react'
+import { FileText, X } from 'lucide-react'
+import type { ContentType } from './ContentUploadPage'
+
+const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
+  transcripts: 'Transcripts',
+  presentation: 'Presentation',
+  written: 'Written Materials',
+}
+
+function formatDisplayDate(iso: string) {
+  const [y, m, d] = iso.split('-')
+  return new Date(+y, +m - 1, +d).toLocaleDateString('en-AU', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  })
+}
+
+function todayDisplay() {
+  return new Date().toLocaleDateString('en-AU', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  })
+}
 
 interface Props {
   title: string
+  contentType: ContentType
   contentUrl: string
   isPdf?: boolean
   noData?: boolean
   accreditationCode: string
   cpdPoints: number
+  activityDate?: string
+  passingMark?: number
 }
 
-export default function QuizInfoSection({ title, contentUrl, isPdf: isPdfProp, noData, accreditationCode, cpdPoints }: Props) {
-  const [showPdf, setShowPdf] = useState(false)
+export default function QuizInfoSection({
+  title,
+  contentType,
+  contentUrl,
+  isPdf: isPdfProp,
+  noData,
+  accreditationCode,
+  cpdPoints,
+  activityDate,
+  passingMark = 75,
+}: Props) {
+  const [showViewer, setShowViewer] = useState(false)
   const isPdf = isPdfProp !== undefined ? isPdfProp : contentUrl.toLowerCase().endsWith('.pdf')
+
+  const assessmentDate = todayDisplay()
+  const activityDateDisplay = activityDate ? formatDisplayDate(activityDate) : assessmentDate
+
+  const metadata = [
+    { label: 'Assessment Number', value: accreditationCode },
+    { label: 'Total CPD Points', value: String(cpdPoints) },
+    { label: 'Assessment Date', value: assessmentDate },
+    { label: 'Activity Date', value: activityDateDisplay },
+    { label: 'Passing Mark', value: `${passingMark}%` },
+  ]
 
   return (
     <>
-      <div className="flex flex-col gap-2 animate-slide-down">
-
-        {/* View content / No data button — top right */}
-        <div className="flex justify-end">
-          {noData ? (
-            <span className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold text-muted-foreground opacity-60 cursor-not-allowed select-none">
-              <X className="size-4" />
-              No Data Available
-            </span>
-          ) : contentUrl ? (
-            <button
-              onClick={() => setShowPdf(true)}
-              className="flex items-center gap-2 rounded-lg border border-primary/30 bg-card px-4 py-2 text-sm font-semibold text-primary shadow-sm transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-md"
-            >
-              {isPdf ? <FileText className="size-4" /> : <ExternalLink className="size-4" />}
-              {isPdf ? 'View PDF' : 'View Content'}
-            </button>
-          ) : null}
-        </div>
-
-        {/* 2 stat cards */}
-        <div className="grid grid-cols-2 gap-3">
-
-          {/* Accreditation Code */}
-          <div className="flex flex-col items-center gap-1.5 rounded-xl border bg-card px-3 py-2.5 text-center shadow-sm">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-              <Hash className="size-4 text-primary" />
-            </div>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Accreditation Code
-            </span>
-            <span className="text-lg font-bold tabular-nums tracking-wide text-primary">
-              {accreditationCode}
-            </span>
+      <div className="rounded-xl border bg-white px-5 py-4 mb-[30px] animate-slide-down">
+        {/* Top row: title + content type left, View Content right */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-1 min-w-0">
+            <h1 className="text-[20px] font-semibold leading-snug text-foreground">{title}</h1>
+            <p className="text-[16px] font-medium text-primary">{CONTENT_TYPE_LABELS[contentType]}</p>
           </div>
 
-          {/* CPD Points */}
-          <div className="flex flex-col items-center gap-1.5 rounded-xl border bg-card px-3 py-2.5 text-center shadow-sm">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-              <Award className="size-4 text-primary" />
+          <button
+            onClick={() => { if (!noData && contentUrl) setShowViewer(true) }}
+            disabled={noData || !contentUrl}
+            className="flex items-center gap-2.5 shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <span className="text-[13px] font-semibold text-foreground">View Content</span>
+            <div className="flex size-10 items-center justify-center rounded-full bg-primary shadow-sm">
+              <FileText className="size-4 text-white" strokeWidth={2} />
             </div>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              CPD {cpdPoints === 1 ? 'Point' : 'Points'}
-            </span>
-            <span className="text-4xl font-bold leading-none text-primary tabular-nums">
-              {cpdPoints}
-            </span>
-          </div>
-
+          </button>
         </div>
 
-        {/* Title */}
-        <h1 className="mt-[30px] mb-5 text-center text-xl font-bold leading-snug text-foreground">
-          {title}
-        </h1>
+        {/* Divider */}
+        <div className="my-4 border-t border-border" />
+
+        {/* Metadata row */}
+        <div className="flex justify-between gap-y-3">
+          {metadata.map(({ label, value }) => (
+            <div key={label} className="flex flex-col gap-1">
+              <span className="text-[14px] text-muted-foreground">{label}</span>
+              <span className="text-[14px] font-medium text-primary">{value}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* PDF / URL viewer modal */}
-      {showPdf && (
+      {/* Content viewer modal */}
+      {showViewer && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-          onClick={() => setShowPdf(false)}
+          onClick={() => setShowViewer(false)}
         >
           <div
             className="relative flex h-[90vh] w-full max-w-4xl flex-col rounded-2xl bg-white shadow-2xl"
@@ -85,14 +106,11 @@ export default function QuizInfoSection({ title, contentUrl, isPdf: isPdfProp, n
           >
             <div className="flex items-center justify-between border-b px-5 py-3.5">
               <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                {isPdf
-                  ? <FileText className="size-4 text-primary" />
-                  : <ExternalLink className="size-4 text-primary" />
-                }
+                <FileText className="size-4 text-primary" />
                 {isPdf ? 'Course Content' : contentUrl.replace(/^https?:\/\//, '')}
               </div>
               <button
-                onClick={() => setShowPdf(false)}
+                onClick={() => setShowViewer(false)}
                 className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 <X className="size-4" />

@@ -10,6 +10,7 @@ export interface ContentData {
   file?: File
   text?: string
   url?: string
+  date?: string
 }
 
 interface Props {
@@ -254,7 +255,7 @@ export default function ContentUploadPage({ onAssess }: Props) {
 
               {/* Assess button */}
               <button
-                onClick={() => onAssess(selected, { inputType: tab, file: file ?? undefined, text, url })}
+                onClick={() => onAssess(selected, { inputType: tab, file: file ?? undefined, text, url, date })}
                 className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-2.5 text-sm font-semibold text-background shadow-sm transition-all duration-150 hover:opacity-90 active:scale-[0.98]"
               >
                 Assess

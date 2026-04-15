@@ -15,7 +15,7 @@ export default function ConfirmationPage({ name, score, total }: Props) {
     <div className="flex min-h-screen flex-col bg-background">
       {/* Navbar */}
       <header className="w-full border-b border-border bg-white/95">
-        <div className="mx-auto max-w-3xl flex h-14 items-center px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl flex h-14 items-center justify-center px-4 sm:px-6">
           <a href="/" className="flex items-center" aria-label="CPDcheck home">
             <img src={logo} alt="Maclean Financial" className="h-9 w-auto" />
           </a>

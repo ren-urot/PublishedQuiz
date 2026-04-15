@@ -28,9 +28,7 @@ export default function AnswerOption({
     <button
       onClick={onClick}
       disabled={isAnswered}
-      style={{ animationDelay: `${index * 70}ms` }}
       className={cn(
-        'animate-slide-up',
         'flex w-full items-center gap-3 rounded-xl border-[1.5px] px-4 py-2.5 text-left',
         'transition-all duration-200 hover:shadow-[0_0_14px_4px_rgba(17,130,227,0.22)] active:scale-[0.99]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',

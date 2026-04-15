@@ -16,6 +16,8 @@ interface ActiveContent {
   url: string
   isPdf: boolean
   noData: boolean
+  contentType: ContentType
+  activityDate: string
 }
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
     url: quizMeta.contentUrl,
     isPdf: quizMeta.contentUrl.toLowerCase().endsWith('.pdf'),
     noData: false,
+    contentType: 'written',
+    activityDate: '',
   })
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export default function App() {
 
   function handleAssess(contentType: ContentType, data: ContentData) {
     if (contentType === 'transcripts') {
-      setActiveContent({ url: '', isPdf: false, noData: true })
+      setActiveContent({ url: '', isPdf: false, noData: true, contentType, activityDate: data.date ?? '' })
     } else {
       let url = ''
       let isPdf = false
@@ -47,7 +51,7 @@ export default function App() {
         url = data.url
         isPdf = data.url.toLowerCase().endsWith('.pdf')
       }
-      setActiveContent({ url, isPdf, noData: false })
+      setActiveContent({ url, isPdf, noData: false, contentType, activityDate: data.date ?? '' })
     }
     quiz.restart()
     setPage('quiz')
@@ -71,15 +75,17 @@ export default function App() {
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar variant="maclean" />
 
-      <main className="flex flex-1 items-center justify-center px-4 pb-4 pt-0 sm:px-8 sm:pb-8 sm:pt-[2px]">
-        <div className="flex w-full max-w-2xl flex-col gap-2">
+      <main className="flex flex-1 items-start justify-center px-4 pb-4 pt-4 sm:px-8 sm:pb-8 sm:pt-6">
+        <div className="flex w-full max-w-[942px] flex-col gap-2">
           <QuizInfoSection
             title={quizMeta.title}
+            contentType={activeContent.contentType}
             contentUrl={activeContent.url}
             isPdf={activeContent.isPdf}
             noData={activeContent.noData}
             accreditationCode={quizMeta.accreditationCode}
             cpdPoints={quizMeta.cpdPoints}
+            activityDate={activeContent.activityDate}
           />
 
           <QuestionTracker
