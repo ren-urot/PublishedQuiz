@@ -88,10 +88,10 @@ export default function ResultsModal({ score, total, onRestart, onSubmit }: Prop
         <CardHeader className="items-center pb-2 text-center">
           <div className="animate-pop">
             {pct >= 75
-              ? <CheckCircle2 className="size-[3rem] text-green-600" strokeWidth={1.75} />
+              ? <CheckCircle2 className="size-[3rem] text-[#3d79f2]" strokeWidth={1.75} />
               : pct >= 50
-              ? <AlertCircle className="size-[3rem] text-amber-500" strokeWidth={1.75} />
-              : <XCircle className="size-[3rem] text-red-500" strokeWidth={1.75} />
+              ? <AlertCircle className="size-[3rem] text-[#ff9f4b]" strokeWidth={1.75} />
+              : <XCircle className="size-[3rem] text-[#ff9f4b]" strokeWidth={1.75} />
             }
           </div>
           <h2 className="mt-3 text-2xl font-extrabold text-foreground">{title}</h2>
@@ -100,14 +100,14 @@ export default function ResultsModal({ score, total, onRestart, onSubmit }: Prop
         <CardContent className="flex flex-col items-center gap-5 text-center">
           <div className="flex items-center gap-5 rounded-2xl border border-border bg-secondary px-7 py-4">
             <div className="flex flex-col items-center gap-1">
-              <span className={cn('text-4xl font-extrabold tabular-nums', passed ? 'text-primary' : 'text-red-500')}>
+              <span className={cn('text-4xl font-extrabold tabular-nums', passed ? 'text-[#3d79f2]' : 'text-[#ff9f4b]')}>
                 {displayPct}%
               </span>
               <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Score</span>
             </div>
             <div className="h-10 w-px bg-border" />
             <div className="flex flex-col items-center gap-1">
-              <span className="text-4xl font-extrabold tabular-nums text-green-600">75%</span>
+              <span className="text-4xl font-extrabold tabular-nums text-[#3d79f2]">75%</span>
               <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Passing Mark</span>
             </div>
           </div>
@@ -116,11 +116,11 @@ export default function ResultsModal({ score, total, onRestart, onSubmit }: Prop
 
           <div className="flex w-full justify-center gap-10 border-y border-border py-4">
             <div className="flex flex-col items-center gap-1 animate-slide-up" style={{ animationDelay: '400ms' }}>
-              <span className="text-2xl font-extrabold text-green-600">{score}</span>
+              <span className="text-2xl font-extrabold text-[#3d79f2]">{score}</span>
               <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Correct</span>
             </div>
             <div className="flex flex-col items-center gap-1 animate-slide-up" style={{ animationDelay: '500ms' }}>
-              <span className="text-2xl font-extrabold text-red-500">{total - score}</span>
+              <span className="text-2xl font-extrabold text-[#ff9f4b]">{total - score}</span>
               <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Incorrect</span>
             </div>
             <div className="flex flex-col items-center gap-1 animate-slide-up" style={{ animationDelay: '600ms' }}>

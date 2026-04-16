@@ -72,7 +72,14 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div
+      className="flex min-h-screen flex-col bg-background"
+      style={{
+        '--primary': '220 72% 39%',
+        '--secondary-foreground': '220 72% 39%',
+        '--ring': '220 72% 39%',
+      } as React.CSSProperties}
+    >
       <Navbar variant="maclean" />
 
       <main className="flex flex-1 items-start justify-center px-4 pb-4 pt-4 sm:px-8 sm:pb-8 sm:pt-6">

@@ -1,5 +1,3 @@
-@import '@fontsource-variable/geist';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,8 +22,8 @@
     --muted: 214 32% 93%;
     --muted-foreground: 217 20% 46%;
 
-    --accent: 214 32% 93%;
-    --accent-foreground: 210 77% 48%;
+    --accent: 28 100% 53%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;

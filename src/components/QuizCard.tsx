@@ -21,7 +21,7 @@ export default function QuizCard({
   return (
     <Card className="animate-slide-up">
       <CardHeader className="pb-2 p-4">
-        <p className="text-xs font-bold uppercase tracking-widest text-primary">
+        <p className="text-xs font-bold uppercase tracking-widest text-accent">
           Question {questionNumber}
         </p>
         <h2 className="text-xl font-bold leading-snug text-foreground">{question.question}</h2>

@@ -10,7 +10,7 @@ export default function Navbar({ variant = 'cpd' }: Props) {
   const alt = variant === 'maclean' ? 'Maclean Financial' : 'CPDcheck'
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-40 w-full border-b border-[#ff9f4b] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className={`mx-auto max-w-3xl flex h-14 items-center px-4 sm:px-6 ${variant === 'maclean' ? 'justify-center' : ''}`}>
         <a href="/" className="flex items-center" aria-label={alt}>
           {variant === 'maclean'

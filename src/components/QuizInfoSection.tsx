@@ -28,7 +28,7 @@ interface Props {
   isPdf?: boolean
   noData?: boolean
   accreditationCode: string
-  cpdPoints: number
+  cpdPoints: string
   activityDate?: string
   passingMark?: number
 }
@@ -52,7 +52,7 @@ export default function QuizInfoSection({
 
   const metadata = [
     { label: 'Assessment Number', value: accreditationCode },
-    { label: 'Total CPD Points', value: String(cpdPoints) },
+    { label: 'Total CPD Points', value: cpdPoints },
     { label: 'Assessment Date', value: assessmentDate },
     { label: 'Activity Date', value: activityDateDisplay },
     { label: 'Passing Mark', value: `${passingMark}%` },
@@ -65,7 +65,7 @@ export default function QuizInfoSection({
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-col gap-1 min-w-0">
             <h1 className="text-[20px] font-semibold leading-snug text-foreground">{title}</h1>
-            <p className="text-[16px] font-medium text-primary">{CONTENT_TYPE_LABELS[contentType]}</p>
+            <p className="text-[16px] font-medium text-accent">{CONTENT_TYPE_LABELS[contentType]}</p>
           </div>
 
           <button
@@ -74,7 +74,7 @@ export default function QuizInfoSection({
             className="flex items-center gap-2.5 shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <span className="text-[13px] font-semibold text-foreground">View Content</span>
-            <div className="flex size-10 items-center justify-center rounded-full bg-primary shadow-sm">
+            <div className="flex size-10 items-center justify-center rounded-full bg-accent shadow-sm">
               <FileText className="size-4 text-white" strokeWidth={2} />
             </div>
           </button>
