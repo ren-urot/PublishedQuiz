@@ -88,7 +88,7 @@ export default function QuizInfoSection({
           {metadata.map(({ label, value }) => (
             <div key={label} className="flex flex-col gap-1">
               <span className="text-[14px] text-muted-foreground">{label}</span>
-              <span className="text-[14px] font-medium text-primary">{value}</span>
+              <span className="text-[14px] font-medium text-[#1A2C50]">{value}</span>
             </div>
           ))}
         </div>
